@@ -1,17 +1,17 @@
 <template>
     <div class="graphics">
-        <canvas v-for="item in items" width="30px" height="30px" :title = 'item.text' v-on:mousemove='touMove($event)'></canvas>
+        <canvas v-for="item in items" width="30px" height="30px" :title="item.text" draggable="true" @dragstart="drag($event)"></canvas>
     </div>
 </template>
 
 <script>
-import { mapState } from 'vuex'
+import { mapState } from "vuex";
 export default {
   name: "Graphics",
   data() {
-    return {}
+    return {};
   },
-  computed:{
+  computed: {
     ...mapState({
       items: state => state.graphics.items
     })
@@ -42,8 +42,8 @@ export default {
     }
   },
   methods: {
-    touMove:function(event){
-      console.log(event.currentTarget);
+    drag: function(ev) {
+      ev.dataTransfer.setData("Text", ev.currentTarget);
     }
   }
 };
